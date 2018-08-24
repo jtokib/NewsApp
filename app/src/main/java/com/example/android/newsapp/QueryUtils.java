@@ -44,8 +44,15 @@ public class QueryUtils {
                 String date = currentItem.getString("webPublicationDate");
                 String title = currentItem.getString("webTitle");
                 String url = currentItem.getString("webUrl");
+                JSONArray tags = currentItem.getJSONArray("tags");
+                String author = "";
 
-                News newsItem = new News(section, date, title, url);
+                for(int n = 0; n < tags.length(); n++) {
+                    JSONObject currentTag = tags.getJSONObject(n);
+                    author = currentTag.getString("webTitle");
+                }
+
+                News newsItem = new News(section, date, title, author, url);
                 newsList.add(newsItem);
             }
         }

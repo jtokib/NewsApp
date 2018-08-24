@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">News App</string>
-    <string name="NO_CONNECTION">No Internet Connection</string>
-    <string name="NO_ARTICLES">No Articles</string>
+    <string name="NO_CONNECTION">No Internet Connection.\n\nAre you in airplane mode? Connect to a WiFi or Mobile network and try again.</string>
+    <string name="NO_ARTICLES">No Articles Found Matching Your Request.</string>
 </resources>

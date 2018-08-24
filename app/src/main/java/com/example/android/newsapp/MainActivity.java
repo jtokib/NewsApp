@@ -21,7 +21,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<News>> {
 
     private static final int NEWS_LOADER_ID = 1;
-    private static final String GUARDIAN_REQUEST_URL = "http://content.guardianapis.com/search?q=sports&api-key=test";
+    private static final String GUARDIAN_REQUEST_URL = "http://content.guardianapis.com/search?q=sports&show-tags=contributor&api-key=test";
     private NewsAdapter _adapter;
     private TextView _emptyStateTextView;
 
@@ -30,8 +30,14 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Find reference the listview in the layout
         ListView newsListView = findViewById(R.id.list);
 
+        //find the empty view
+        _emptyStateTextView = findViewById(R.id.empty_view);
+        newsListView.setEmptyView(_emptyStateTextView);
+
+        //createa new adapter that takes an empty list as an input
         _adapter = new NewsAdapter(this, 0, new ArrayList<News>());
 
         newsListView.setAdapter(_adapter);
@@ -61,9 +67,6 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
             loadingBar.setVisibility(View.GONE);
             _emptyStateTextView.setText(R.string.NO_CONNECTION);
         }
-
-        _emptyStateTextView = findViewById(R.id.empty_view);
-        newsListView.setEmptyView(_emptyStateTextView);
     }
 
     @Override

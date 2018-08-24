@@ -1,21 +1,31 @@
 package com.example.android.newsapp;
 
 public class News {
-    private String _section;
-    private String _date;
-    private String _title;
-    private String _url;
+    private String mSection;
+    private String mDate;
+    private String mTitle;
+    private String mUrl;
+    private String mAuthor;
 
     public News(String section, String date, String title, String url) {
-        _section = section;
-        _date = date;
-        _title = title;
-        _url = url;
+        mSection = section;
+        mDate = date;
+        mTitle = title;
+        mUrl = url;
     }
 
-    public String getSection() { return _section; }
-    public String getDate() { return _date; }
-    public String getTitle() { return _title; }
-    public String getUrl() { return _url; }
+    public News(String section, String date, String title, String author, String url) {
+        mSection = section;
+        mDate = date;
+        mTitle = title;
+        mAuthor = author;
+        mUrl = url;
+    }
+
+    public String getSection() { return mSection; }
+    public String getDate() { return mDate; }
+    public String getTitle() { return mTitle; }
+    public String getAuthor() { return mAuthor; }
+    public String getUrl() { return mUrl; }
 
 }
