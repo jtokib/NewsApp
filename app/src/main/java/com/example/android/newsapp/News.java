@@ -22,10 +22,24 @@ public class News {
         mUrl = url;
     }
 
-    public String getSection() { return mSection; }
-    public String getDate() { return mDate; }
-    public String getTitle() { return mTitle; }
-    public String getAuthor() { return mAuthor; }
-    public String getUrl() { return mUrl; }
+    public String getSection() {
+        return mSection;
+    }
+
+    public String getDate() {
+        return mDate;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public String getAuthor() {
+        return mAuthor;
+    }
+
+    public String getUrl() {
+        return mUrl;
+    }
 
 }

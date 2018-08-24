@@ -20,15 +20,19 @@ import java.util.List;
 
 public class QueryUtils {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     public static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
     private QueryUtils() {
     }
 
-    /**Return a list of News objects that has been built up from parsing a JSON response */
+    /**
+     * Return a list of News objects that has been built up from parsing a JSON response
+     */
     public static List<News> extractNewsFromJson(String newsJSON) {
-        if(TextUtils.isEmpty(newsJSON)) {
+        if (TextUtils.isEmpty(newsJSON)) {
             return null;
         }
 
@@ -38,7 +42,7 @@ public class QueryUtils {
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
             JSONObject response = baseJsonResponse.getJSONObject("response");
             JSONArray results = response.getJSONArray("results");
-            for(int i = 0; i < results.length(); i++) {
+            for (int i = 0; i < results.length(); i++) {
                 JSONObject currentItem = results.getJSONObject(i);
                 String section = currentItem.getString("sectionName");
                 String date = currentItem.getString("webPublicationDate");
@@ -47,7 +51,7 @@ public class QueryUtils {
                 JSONArray tags = currentItem.getJSONArray("tags");
                 String author = "";
 
-                for(int n = 0; n < tags.length(); n++) {
+                for (int n = 0; n < tags.length(); n++) {
                     JSONObject currentTag = tags.getJSONObject(n);
                     author = currentTag.getString("webTitle");
                 }
@@ -55,15 +59,16 @@ public class QueryUtils {
                 News newsItem = new News(section, date, title, author, url);
                 newsList.add(newsItem);
             }
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             Log.e("Queryutils", "Problem parsing the Guardian JSON results", e);
         }
 
         return newsList;
     }
 
-    /** Query the Guardian API and return a list of News objects */
+    /**
+     * Query the Guardian API and return a list of News objects
+     */
 
     public static List<News> fetchNewsData(String requestUrl) {
         URL url = createUrl(requestUrl);
@@ -71,8 +76,7 @@ public class QueryUtils {
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Log.e(LOG_TAG, "Problem making the HTTP request", e);
         }
 
@@ -80,6 +84,7 @@ public class QueryUtils {
 
         return newsList;
     }
+
     /**
      * Returns new URL object from the given string URL.
      */
@@ -93,13 +98,14 @@ public class QueryUtils {
         }
         return url;
     }
+
     /**
      * Make an HTTP request to the given URL and return a String as the response.
      */
     private static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
 
-        if(url == null) {
+        if (url == null) {
             return jsonResponse;
         }
 
@@ -113,12 +119,12 @@ public class QueryUtils {
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            if(urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG,"Problem retrieving the news JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving the news JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -136,7 +142,7 @@ public class QueryUtils {
      */
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
-        if(inputStream != null) {
+        if (inputStream != null) {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
             BufferedReader reader = new BufferedReader(inputStreamReader);
             String line = reader.readLine();

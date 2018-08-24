@@ -3,14 +3,12 @@ package com.example.android.newsapp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class NewsAdapter extends ArrayAdapter<News> {
@@ -24,7 +22,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
-        if(listItemView == null) {
+        if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(
                     R.layout.list_item, parent, false);
         }
@@ -58,7 +56,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
     }
 
     private String dateFormat(String date) {
-        String dateChop = date.substring(0,date.indexOf("T"));
+        String dateChop = date.substring(0, date.indexOf("T"));
         return dateChop;
     }
 }

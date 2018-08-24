@@ -7,11 +7,11 @@ import java.util.List;
 
 public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
-    private String _url;
+    private String mUrl;
 
     public NewsLoader(Context context, String url) {
         super(context);
-        _url = url;
+        mUrl = url;
     }
 
     @Override
@@ -21,9 +21,9 @@ public class NewsLoader extends AsyncTaskLoader<List<News>> {
 
     @Override
     public List<News> loadInBackground() {
-        if(_url == null) {
+        if (mUrl == null) {
             return null;
         }
-        return QueryUtils.fetchNewsData(_url);
+        return QueryUtils.fetchNewsData(mUrl);
     }
 }
