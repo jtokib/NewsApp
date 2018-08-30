@@ -5,11 +5,15 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,7 +25,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<News>> {
 
     private static final int NEWS_LOADER_ID = 1;
-    private static final String GUARDIAN_REQUEST_URL = "http://content.guardianapis.com/search?q=sports&show-tags=contributor&api-key=test";
+    private static final String GUARDIAN_REQUEST_URL = "http://content.guardianapis.com/search";
+    private static final String GUARDIAN_SHOW_TAGS = "contributor";
+    private static final String GUARDIAN_API_KEY = "f65a7443-ad78-4f02-9516-204694a6adb5";
     private NewsAdapter mAdapter;
     private TextView mEmptyStateTextView;
 
@@ -30,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.theguardian_op_logo);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         //Find reference the listview in the layout
         ListView newsListView = findViewById(R.id.list);
 
@@ -37,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         mEmptyStateTextView = findViewById(R.id.empty_view);
         newsListView.setEmptyView(mEmptyStateTextView);
 
-        //createa new adapter that takes an empty list as an input
+        //create a new adapter that takes an empty list as an input
         mAdapter = new NewsAdapter(this, 0, new ArrayList<News>());
 
         newsListView.setAdapter(mAdapter);
@@ -71,7 +81,18 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     @Override
     public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
-        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+//        return new NewsLoader(this, GUARDIAN_REQUEST_URL);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String searchQuery = sharedPreferences.getString(getString(R.string.search_key), getString(R.string.search_default));
+
+        Uri baseUri = Uri.parse(GUARDIAN_REQUEST_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("q", searchQuery);
+        uriBuilder.appendQueryParameter("show-tags", GUARDIAN_SHOW_TAGS);
+        uriBuilder.appendQueryParameter("api-key", GUARDIAN_API_KEY);
+
+        return new NewsLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -96,4 +117,20 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         mAdapter.clear();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
