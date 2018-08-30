@@ -6,5 +6,5 @@
     <string name="search_key">sports</string>
     <string name="search_label">Settings</string>
     <string name="appName">News App</string>
-    <string name="by_author">By</string>
+    <string name="by_author">By </string>
 </resources>
