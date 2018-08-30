@@ -6,4 +6,5 @@
     <string name="search_default">sports</string>
     <string name="search_key">sports</string>
     <string name="search_label">Search Term</string>
+    <string name="appName">News App</string>
 </resources>
