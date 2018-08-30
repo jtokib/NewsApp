@@ -36,7 +36,9 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Replace app name with drawable logo
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setLogo(R.drawable.theguardian_op_logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
 
