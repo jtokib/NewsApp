@@ -4,5 +4,5 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/action_settings"
-        android:title="@string/search" />
+        android:title="@string/search_label" />
 </menu>

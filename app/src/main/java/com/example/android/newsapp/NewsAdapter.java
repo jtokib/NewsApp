@@ -49,7 +49,7 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
     private String byAuthor(String author) {
         if (author != "") {
-            return "By " + author;
+            return getContext().getString(R.string.by_author) + author;
         } else {
             return "";
         }

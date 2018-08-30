@@ -2,9 +2,9 @@
     <string name="NO_CONNECTION">No Internet Connection.\n\nAre you in airplane mode? Connect to a WiFi or Mobile network and try again.</string>
     <string name="NO_ARTICLES">No Articles Found Matching Your Request.</string>
     <string name="settings">Settings</string>
-    <string name="search">Search All Content</string>
     <string name="search_default">sports</string>
     <string name="search_key">sports</string>
-    <string name="search_label">Search Term</string>
+    <string name="search_label">Settings</string>
     <string name="appName">News App</string>
+    <string name="by_author">By</string>
 </resources>
